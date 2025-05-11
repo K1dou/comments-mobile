@@ -5,6 +5,7 @@ import { Container } from "@/components/Container";
 import Inputs from "@/components/Inputs";
 import { Text, TouchableOpacity, View } from "react-native";
 
+
 export default function Register() {
 
     return (
