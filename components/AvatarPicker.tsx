@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, Image, Text, Pressable, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
+
 export default function AvatarPicker() {
     const [imageUri, setImageUri] = useState<string | null>(null);
 

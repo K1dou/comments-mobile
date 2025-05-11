@@ -3,7 +3,9 @@ import AvatarPicker from "@/components/AvatarPicker";
 import Button from "@/components/Button";
 import { Container } from "@/components/Container";
 import Inputs from "@/components/Inputs";
+import { Link } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
+
 
 
 export default function Register() {
@@ -17,14 +19,14 @@ export default function Register() {
                 <Inputs placeholder='Nome' />
                 <Inputs autoComplete="email" className="mt-4" placeholder='E-mail' />
                 <Inputs secureTextEntry textContentType="password"
-                    className='mt-4 mb-4' placeholder='Senha' />
+                    className='mt-4 mb-8' placeholder='Senha' />
 
                 <AvatarPicker />
 
-                <Button type='register' title='Registrar' className='mb-4' />
+                <Button type='register' title='Registrar' className='mb-4 mt-8' />
 
 
-                <TouchableOpacity className='text-[#838C9B] text-lg mt-4'><Text className='text-blue-400 font-medium'>Já tem conta? Fazer login</Text></TouchableOpacity>
+                <TouchableOpacity className='text-[#838C9B] text-lg mt-4'><Link href={"/login"} className='text-blue-400 font-medium'>Já tem conta? Fazer login</Link></TouchableOpacity>
             </View>
 
         </Container>

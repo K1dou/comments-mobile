@@ -2,6 +2,7 @@
 import Button from "@/components/Button";
 import { Container } from "@/components/Container";
 import Inputs from "@/components/Inputs";
+import { Link } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 export default function Login() {
@@ -17,7 +18,7 @@ export default function Login() {
                 <Button type='loginDefault' title='Login' className='mb-4' />
                 <Button type='loginGoogle' title='Entrar com Google' />
 
-                <Text className='text-[#838C9B] text-lg mt-4 '>Não tem uma conta? <TouchableOpacity className='text-center mt-[10px]'><Text className='text-blue-400 underline '>Criar conta</Text></TouchableOpacity></Text>
+                <Text className='text-[#838C9B] text-lg mt-4 '>Não tem uma conta? <TouchableOpacity className='text-center mt-[10px]'><Link href={"/register"} className='text-blue-400 underline '>Criar conta</Link></TouchableOpacity></Text>
             </View>
 
         </Container>
