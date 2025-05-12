@@ -17,7 +17,7 @@ export default function HomeScreen() {
   const comments = paginatedCommentsData?.pages.flatMap((page) => page.content) ?? [];
 
   return (
-    <ScrollView className="flex-1 bg-Grey-50 px-4 pt-4 pb-20">
+    <ScrollView className="flex-1 bg-gray-100 px-4 pt-4 pb-20">
       <Navbar />
       <View className="h-16" />
 

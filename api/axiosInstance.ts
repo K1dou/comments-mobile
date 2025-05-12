@@ -1,3 +1,4 @@
+import { get } from '@/storage';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -9,10 +10,13 @@ const axiosInstance = axios.create({
 
 export default axiosInstance;
 
-axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+axiosInstance.interceptors.request.use(async (config) => {
+  // const token = localStorage.getItem('token');
+  const tokenMobile = await get('token');
+  console.log('TokenMobile' + tokenMobile);
+
+  if (tokenMobile) {
+    config.headers.Authorization = `Bearer ${tokenMobile}`;
   }
   return config;
 });
