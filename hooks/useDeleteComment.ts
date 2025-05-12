@@ -15,7 +15,6 @@ export function useDeleteComment() {
 
       const previousData = queryClient.getQueryData(['comments']);
 
-      // Atualiza a lista localmente
       queryClient.setQueryData(['comments'], (oldData: any) => {
         if (!oldData) return oldData;
 
