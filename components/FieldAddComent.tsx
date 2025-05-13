@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Image, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Image, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useLoginContext } from '../contexts/UserContext';
 import { useCommentMutation } from '@/hooks/useCommentMutation';
 
 interface FieldAddComentProps {
     className?: string;
+    scrollRef?: any;
 }
 
-export default function FieldAddComent({ className }: FieldAddComentProps) {
+export default function FieldAddComent({ className, scrollRef }: FieldAddComentProps) {
     const { user } = useLoginContext();
     const commentMutation = useCommentMutation();
     const [text, setText] = useState<string>("");
@@ -21,8 +22,15 @@ export default function FieldAddComent({ className }: FieldAddComentProps) {
     }
 
     return (
+
+
+
         <View className={`bg-white p-3 rounded-[10px] ${className}`}>
             <TextInput
+                onFocus={(event) => {
+                    scrollRef?.current?.scrollToFocusedInput(event.target);
+                }}
+
                 value={text}
                 onChangeText={setText}
                 multiline
@@ -46,5 +54,6 @@ export default function FieldAddComent({ className }: FieldAddComentProps) {
                 </TouchableOpacity>
             </View>
         </View>
+
     );
 }

@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Feather } from '@expo/vector-icons';
+import { remove } from '@/storage';
 
 
 type RootStackParamList = {
@@ -12,9 +13,9 @@ type RootStackParamList = {
 export default function Navbar() {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
+    const handleLogout = async () => {
+        await remove('token');
+        await remove('refreshToken');
 
         navigation.navigate('Login');
     };

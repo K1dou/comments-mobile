@@ -28,7 +28,6 @@ export function UserProvider({ children }: UserProviderProps) {
 
     useEffect(() => {
         const doFakeLogin = async () => {
-            // const token = localStorage.getItem('token');
             const tokenMobile = await get('token');
 
             if (!tokenMobile) {
@@ -36,8 +35,6 @@ export function UserProvider({ children }: UserProviderProps) {
                     const res = await login('hique1276@gmail.com', '123456');
                     const { token, refreshToken } = res.data;
 
-                    // localStorage.setItem('token', token);
-                    // localStorage.setItem('refreshToken', refreshToken);
 
                     await save('token', token);
                     await save('refreshToken', refreshToken);

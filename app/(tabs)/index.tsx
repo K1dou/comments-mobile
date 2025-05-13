@@ -2,7 +2,11 @@ import CommentThread from '@/components/CommentThread';
 import FieldAddComent from '@/components/FieldAddComent';
 import Navbar from '@/components/NavBar';
 import { useInfiniteComments } from '@/hooks/useInfiniteComments';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useRef } from 'react';
+import { KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+
 
 export default function HomeScreen() {
 
@@ -16,13 +20,20 @@ export default function HomeScreen() {
 
   const comments = paginatedCommentsData?.pages.flatMap((page) => page.content) ?? [];
 
+  const scrollRef = useRef<KeyboardAwareScrollView>(null);
+
+
   return (
     <View className="flex-1 bg-gray-100">
-      {/* Header fixo */}
       <Navbar />
 
-      {/* Conteúdo rolável */}
-      <ScrollView className="flex-1 px-4 pt-4 pb-20">
+      <KeyboardAwareScrollView
+        ref={scrollRef}
+        enableOnAndroid
+        contentContainerStyle={{ paddingBottom: 20 }}
+        className="px-4 pt-4"
+      >
+
         {comments.map((comment: any) => (
           <CommentThread key={comment.id} comment={comment} />
         ))}
@@ -41,8 +52,8 @@ export default function HomeScreen() {
           </View>
         )}
 
-        <FieldAddComent className="mt-4" />
-      </ScrollView>
+        <FieldAddComent className="" scrollRef={scrollRef} />
+      </KeyboardAwareScrollView>
     </View>
   );
 }

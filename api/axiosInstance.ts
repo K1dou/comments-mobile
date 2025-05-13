@@ -11,9 +11,7 @@ const axiosInstance = axios.create({
 export default axiosInstance;
 
 axiosInstance.interceptors.request.use(async (config) => {
-  // const token = localStorage.getItem('token');
   const tokenMobile = await get('token');
-  console.log('TokenMobile' + tokenMobile);
 
   if (tokenMobile) {
     config.headers.Authorization = `Bearer ${tokenMobile}`;
