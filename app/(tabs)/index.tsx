@@ -52,7 +52,7 @@ export default function HomeScreen() {
           </View>
         )}
 
-        <FieldAddComent className="" scrollRef={scrollRef} />
+        <FieldAddComent className="mt-5" scrollRef={scrollRef} />
       </KeyboardAwareScrollView>
     </View>
   );

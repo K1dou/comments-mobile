@@ -111,11 +111,14 @@ export default function CardComment({
                             {isEditing ? (
                                 <>
                                     <TouchableOpacity
+                                        onPress={handleUpdateComment}
                                         className="bg-[#5758AB] px-3 py-1 rounded-md"
                                     >
                                         <Text className="text-white font-bold">Update</Text>
                                     </TouchableOpacity>
+
                                     <TouchableOpacity
+
                                         onPress={() => {
                                             setIsEditing(false);
                                             setEditedContent(content);

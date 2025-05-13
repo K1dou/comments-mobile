@@ -19,7 +19,42 @@ export function useUpdateComment() {
         }
       ),
 
-    onSuccess: () => {
+    onMutate: async ({ idComment, content }) => {
+      await queryClient.cancelQueries({ queryKey: ['comments'] });
+
+      const previousData = queryClient.getQueryData<any>(['comments']);
+
+      queryClient.setQueryData<any>(
+        ['comments'],
+        (
+          oldData:
+            | { pages: { content: { id: number; content: string }[] }[] }
+            | undefined
+        ) => {
+          if (!oldData) return oldData;
+
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: any) => ({
+              ...page,
+              content: page.content.map((comment: any) =>
+                comment.id === idComment ? { ...comment, content } : comment
+              ),
+            })),
+          };
+        }
+      );
+
+      return { previousData };
+    },
+
+    onError: (_err, _variables, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData(['comments'], context.previousData);
+      }
+    },
+
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] });
     },
   });

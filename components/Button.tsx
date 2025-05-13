@@ -10,15 +10,19 @@ interface ButtonProps {
     type?: keyof typeof typeButton;
     className?: string;
     title?: string;
+    onPress?: () => void;
 }
 
-export default function Button({ type, className, title }: ButtonProps) {
+export default function Button({ type, className, title, onPress }: ButtonProps) {
 
 
 
     return (
         <>
-            <TouchableOpacity className={`${type ? typeButton[type] : ''} ${className}`}>
+            <TouchableOpacity
+                onPress={onPress}
+                className={`${type ? typeButton[type] : ''} ${className}`}>
+
                 <Text className={`font-bold text-xl ${type === "loginDefault"
                     ? "text-white"
                     : type === "register"
