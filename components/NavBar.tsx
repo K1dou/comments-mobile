@@ -1,9 +1,7 @@
-import { View, Text, TouchableOpacity, StatusBar, Platform } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useLoginContext } from '@/contexts/UserContext';
 import { Feather } from '@expo/vector-icons';
-import { remove } from '@/storage';
+import { Platform, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 type RootStackParamList = {
@@ -11,14 +9,7 @@ type RootStackParamList = {
 };
 
 export default function Navbar() {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-    const handleLogout = async () => {
-        await remove('token');
-        await remove('refreshToken');
-
-        navigation.navigate('Login');
-    };
+    const { logout } = useLoginContext();
 
 
 
@@ -41,7 +32,7 @@ export default function Navbar() {
                         <Feather name="message-circle" size={24} color="white" />
                         <Text className="text-white font-bold text-lg">Comments</Text>
                     </View>
-                    <TouchableOpacity onPress={handleLogout} className="bg-red-500 px-3 py-1 rounded">
+                    <TouchableOpacity onPress={logout} className="bg-red-500 px-3 py-1 rounded">
                         <Text className="text-white font-semibold">Logout</Text>
                     </TouchableOpacity>
                 </View>

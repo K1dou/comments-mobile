@@ -6,6 +6,19 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "commentsmobile",
+    "platforms": ["ios", "android"],
+    "android": {
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "commentsmobile",
+            "host": "oauth2redirect"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {

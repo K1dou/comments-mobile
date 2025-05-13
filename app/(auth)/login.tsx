@@ -12,6 +12,11 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const { login } = useLoginContext();
 
+
+    const handleLogin = (provider: string) => {
+        window.location.href = `https://comments-api-c43806001036.herokuapp.com/oauth2/authorization/${provider}`;
+    };
+
     const handleSubmit = async () => {
         try {
             await login(email, password);
@@ -54,7 +59,7 @@ export default function Login() {
                     type="loginGoogle"
                     title="Entrar com Google"
                     onPress={() =>
-                        Alert.alert("Indisponível", "Login com Google ainda não implementado.")
+                        handleLogin("google")
                     }
                 />
 

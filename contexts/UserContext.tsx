@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { login as authLogin, getMe } from '@/services/authService';
-import { get, save } from '@/storage';
+import { get, remove, save } from '@/storage';
 import type { ReactNode } from 'react';
+import { router } from 'expo-router';
 
 interface User {
     id: number;
@@ -14,6 +15,8 @@ interface UserContextType {
     user: User | null;
     setUser: (user: User | null) => void;
     login: (email: string, password: string) => Promise<void>;
+    logout: () => Promise<void>;
+
 
 }
 
@@ -27,7 +30,6 @@ export function UserProvider({ children }: UserProviderProps) {
     const [user, setUser] = useState<User | null>(null);
 
 
-    // 🔄 Autologin apenas se já existir token salvo
     useEffect(() => {
         const tryAutoLogin = async () => {
             const token = await get('token');
@@ -66,9 +68,22 @@ export function UserProvider({ children }: UserProviderProps) {
         }
     };
 
+    const logout = async () => {
+        try {
+            await remove('token');
+            await remove('refreshToken');
+            setUser(null);
+            router.replace('/login');
+            console.log('Logout realizado com sucesso');
+        } catch (err) {
+            console.error('Erro ao fazer logout:', err);
+        }
+    };
+
+
 
     return (
-        <UserContext.Provider value={{ user, setUser, login }}>
+        <UserContext.Provider value={{ user, setUser, login, logout }}>
             {children}
         </UserContext.Provider>
     );
