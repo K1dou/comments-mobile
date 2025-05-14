@@ -1,11 +1,12 @@
-import { useState } from 'react';
 import { View, Image, Text, Pressable, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
+interface AvatarPickerProps {
+    imageUri: string | null;
+    onPick: (image: ImagePicker.ImagePickerAsset) => void;
+}
 
-export default function AvatarPicker() {
-    const [imageUri, setImageUri] = useState<string | null>(null);
-
+export default function AvatarPicker({ imageUri, onPick }: AvatarPickerProps) {
     async function handlePickImage() {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
@@ -14,13 +15,12 @@ export default function AvatarPicker() {
 
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'],
-            aspect: [1, 1],
-            quality: 1,
             allowsEditing: true,
+            quality: 1,
         });
 
         if (!result.canceled) {
-            setImageUri(result.assets[0].uri);
+            onPick(result.assets[0]);
         }
     }
 

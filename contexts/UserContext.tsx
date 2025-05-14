@@ -31,20 +31,23 @@ export function UserProvider({ children }: UserProviderProps) {
 
 
     useEffect(() => {
-        const tryAutoLogin = async () => {
+        const loadUser = async () => {
             const token = await get('token');
+            if (!token) return;
 
-            if (token) {
-                try {
-                    const me = await getMe();
-                    setUser(me.data);
-                } catch (err) {
-                    console.error('Erro ao buscar /me:', err);
-                }
+            try {
+                const me = await getMe();
+                setUser(me.data);
+            } catch (err) {
+                console.error('Error loading user:', err);
+                await remove('token');
+                await remove('refreshToken');
+                setUser(null);
+                router.replace('/login');
             }
         };
 
-        tryAutoLogin();
+        loadUser();
     }, []);
 
     const login = async (email: string, password: string) => {
