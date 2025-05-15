@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
-import { useLoginContext } from '../contexts/UserContext';
-import FieldAddReply from './FieldAddReply';
 import { useDeleteComment } from '@/hooks/useDeleteComment';
 import { useUpdateComment } from '@/hooks/useUpdateComment';
 import { formatRelativeDate } from '@/utils/date';
-import ModalDelete from './ModalDelete';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import EvilIcons from '@expo/vector-icons/EvilIcons';
+import { useState } from 'react';
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useLoginContext } from '../contexts/UserContext';
+import FieldAddReply from './FieldAddReply';
+import ModalDelete from './ModalDelete';
 
 interface CardCommentProps {
     id: number;
@@ -98,24 +98,21 @@ export default function CardComment({
                 </View>
 
                 <View className="flex-row justify-between mt-4 gap-2">
-                    {/* Like box */}
                     <View className="bg-[#F5F6FA] flex-row gap-2 items-center rounded-[10px] py-2 px-2">
-                        <TouchableOpacity onPress={onClickLike} className="flex flex-row gap-1 p-1 rounded-full">
 
-                            {likedByUser ? (
-                                <AntDesign name="like1" size={16} color="#5758AB" />
-                            ) : (
-                                <AntDesign name="like2" size={16} color="black" />
-                            )}
-                            <Text className="font-bold text-[#5758AB]">{like}</Text>
-                        </TouchableOpacity>
+                        {likedByUser ? (
+                            <TouchableOpacity onPress={onClickUnlike} className="p-1 rounded-full">
+                                <AntDesign name="heart" size={16} color="#6b8e23" />
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity onPress={onClickLike} className="p-1 rounded-full">
+                                <AntDesign name="hearto" size={16} color="black" />
+                            </TouchableOpacity>
+                        )}
+                        <Text className="font-bold text-[#5758AB]">{like}</Text>
 
-                        <TouchableOpacity onPress={onClickUnlike} className="p-1 rounded-full">
-                            <AntDesign name="dislike2" size={16} color="black" />
-                        </TouchableOpacity>
                     </View>
 
-                    {/* Action buttons */}
                     {user?.id === idAuthor ? (
                         <View className="flex-row gap-4 items-center">
                             {isEditing ? (
@@ -154,10 +151,9 @@ export default function CardComment({
                     ) : (
                         <TouchableOpacity
                             onPress={handleReply}
-                            className="flex-row gap-2 items-center"
+                            className="flex-row gap-1 items-center"
                         >
-                            {/* <Image source={require('../assets/icon-reply.png')} className="w-4 h-4" /> */}
-                            <FontAwesome name="reply" size={14} color="#5758AB" />
+                            <EvilIcons name="comment" size={24} color="#5758AB" />
                             <Text className="text-[#5758AB] font-bold">Reply</Text>
                         </TouchableOpacity>
                     )}
