@@ -48,7 +48,7 @@ export default function FieldAddComent({ className, scrollRef }: FieldAddComentP
                 )}
                 <TouchableOpacity
                     onPress={handleSubmitComment}
-                    className="bg-purple-600 py-2 px-6 rounded-[8px]"
+                    className="bg-[#5457B6] py-2 px-6 rounded-[8px]"
                 >
                     <Text className="text-white font-semibold uppercase">Send</Text>
                 </TouchableOpacity>

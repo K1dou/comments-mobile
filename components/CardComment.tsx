@@ -6,6 +6,8 @@ import { useDeleteComment } from '@/hooks/useDeleteComment';
 import { useUpdateComment } from '@/hooks/useUpdateComment';
 import { formatRelativeDate } from '@/utils/date';
 import ModalDelete from './ModalDelete';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 interface CardCommentProps {
     id: number;
@@ -58,7 +60,7 @@ export default function CardComment({
 
     function renderContentWithMention(content: string) {
         return content.split(/(@\w+)/g).map((part, index) => (
-            <Text key={index} className={part.startsWith('@') ? 'text-purple-600 font-semibold' : ''}>
+            <Text key={index} className={part.startsWith('@') ? 'text-[#5457B6] font-semibold' : ''}>
                 {part}
             </Text>
         ));
@@ -95,13 +97,14 @@ export default function CardComment({
 
                 <View className="flex-row justify-between mt-4 gap-2">
                     {/* Like box */}
-                    <View className="bg-[#F5F6FA] flex-row gap-3 items-center rounded-[10px] py-2 px-2">
-                        <TouchableOpacity onPress={onClickLike} className="p-1 rounded-full">
-                            <Image source={require('../assets/icon-plus.png')} className="w-4 h-4" />
+                    <View className="bg-[#F5F6FA] flex-row gap-2 items-center rounded-[10px] py-2 px-2">
+                        <TouchableOpacity onPress={onClickLike} className="flex flex-row gap-1 p-1 rounded-full">
+                            <AntDesign name="like2" size={16} color="black" />
+                            <Text className="font-bold text-[#5758AB]">{like}</Text>
                         </TouchableOpacity>
-                        <Text className="font-bold text-[#5758AB]">{like}</Text>
+
                         <TouchableOpacity onPress={onClickUnlike} className="p-1 rounded-full">
-                            <Image source={require('../assets/icon-minus.png')} className="w-4 h-4" />
+                            <AntDesign name="dislike2" size={16} color="black" />
                         </TouchableOpacity>
                     </View>
 
@@ -146,7 +149,8 @@ export default function CardComment({
                             onPress={handleReply}
                             className="flex-row gap-2 items-center"
                         >
-                            <Image source={require('../assets/icon-reply.png')} className="w-4 h-4" />
+                            {/* <Image source={require('../assets/icon-reply.png')} className="w-4 h-4" /> */}
+                            <FontAwesome name="reply" size={14} color="#5758AB" />
                             <Text className="text-[#5758AB] font-bold">Reply</Text>
                         </TouchableOpacity>
                     )}

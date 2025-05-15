@@ -30,7 +30,9 @@ export default function FieldAddReply({
     }
 
     return (
-        <View className={`bg-white py-3 px-3 rounded-[10px] ${className}`}>
+        <View
+
+            className={`bg-white py-3 px-3 rounded-[10px] ${className}`}>
             <TextInput
                 value={text}
                 onChangeText={setText}
@@ -52,7 +54,7 @@ export default function FieldAddReply({
                         onClick();
                         handleSubmitReply();
                     }}
-                    className="bg-purple-600 py-2 px-6 rounded-[8px]"
+                    className="bg-[#5457B6] py-2 px-6 rounded-[8px]"
                 >
                     <Text className="text-white uppercase font-semibold">Reply</Text>
                 </TouchableOpacity>
