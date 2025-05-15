@@ -37,7 +37,7 @@ export default function FieldAddReply({
                 placeholder="Add a comment..."
                 multiline
                 numberOfLines={4}
-                className="w-full h-24 pl-4 pt-2 border border-gray-300 rounded-[7px] font-regular text-black"
+                className="w-full h-24 pl-4 pt-2 border border-gray-300 rounded-[7px] font-regular text-black focus:border-[#5457B6]"
                 placeholderTextColor="#9ca3af" // gray-400
             />
 

@@ -35,7 +35,7 @@ export default function FieldAddComent({ className, scrollRef }: FieldAddComentP
                 onChangeText={setText}
                 multiline
                 placeholder="Add a comment..."
-                className="w-full h-24 p-2 border border-gray-300 rounded-[7px] text-base"
+                className="w-full h-24 p-2 border border-gray-300 rounded-[7px] text-base focus:border-[#5457B6]"
             />
 
             <View className="flex-row justify-between items-center mt-3">

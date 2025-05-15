@@ -25,7 +25,6 @@ export default function Navbar() {
             <SafeAreaView
                 edges={['top']}
                 className="bg-gray-900"
-                style={{ paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 }}
             >
                 <View className="px-4 py-3 flex-row items-center justify-between">
                     <View className="flex-row items-center space-x-2">
