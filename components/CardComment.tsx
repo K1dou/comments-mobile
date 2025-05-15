@@ -3,6 +3,7 @@ import { useUpdateComment } from '@/hooks/useUpdateComment';
 import { formatRelativeDate } from '@/utils/date';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useLoginContext } from '../contexts/UserContext';
@@ -142,7 +143,7 @@ export default function CardComment({
                                         onPress={() => setIsEditing(true)}
                                         className="flex-row gap-1 items-center"
                                     >
-                                        <Image source={require('../assets/icon-edit.png')} className="w-3 h-3" />
+                                        <MaterialIcons name="edit" size={16} color="#5758AB" />
                                         <Text className="text-[#5758AB] font-bold">Edit</Text>
                                     </TouchableOpacity>
                                 </>

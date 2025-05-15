@@ -1,5 +1,5 @@
-import { Image } from 'react-native';
-import { AlertDialog, Button, XStack, YStack, Text } from 'tamagui';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { AlertDialog, Button, Text, XStack, YStack } from 'tamagui';
 
 interface ModalDeleteProps {
     onDelete: () => void;
@@ -9,11 +9,13 @@ export default function ModalDelete({ onDelete }: ModalDeleteProps) {
     return (
         <AlertDialog native>
             <AlertDialog.Trigger asChild>
-                <Button backgroundColor="white" flexDirection="row" alignItems="center" >
-                    <Image source={require('../assets/icon-delete.png')} style={{ width: 12, height: 12 }} />
-                    <Text fontWeight="700" color="#ED6468">
-                        Delete
-                    </Text>
+                <Button backgroundColor="white" paddingHorizontal={12}>
+                    <XStack alignItems="center" gap="$1">
+                        <MaterialIcons name="delete" size={16} color="#ED6468" />
+                        <Text fontWeight="700" color="#ED6468">
+                            Delete
+                        </Text>
+                    </XStack>
                 </Button>
             </AlertDialog.Trigger>
 
