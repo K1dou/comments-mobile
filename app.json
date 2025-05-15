@@ -4,9 +4,12 @@
     "slug": "comments-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/app.jpg",
     "scheme": "commentsmobile",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
@@ -20,9 +23,16 @@
             "scheme": "commentsmobile",
             "host": "oauth2redirect"
           },
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
-      ]
+      ],
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.kidou1.commentsmobile"
     },
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -34,7 +44,6 @@
     "ios": {
       "supportsTablet": true
     },
-
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -58,6 +67,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "afa37ede-eb05-4d85-b2f2-beea65e21c6e"
+      }
     }
   }
 }
