@@ -19,6 +19,7 @@ interface CardCommentProps {
     onClickUnlike?: () => void;
     createdAt: string;
     idAuthor: number;
+    likedByUser: boolean;
 }
 
 export default function CardComment({
@@ -31,6 +32,7 @@ export default function CardComment({
     onClickLike,
     onClickUnlike,
     createdAt,
+    likedByUser
 }: CardCommentProps) {
     const [reply, setReply] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -99,7 +101,12 @@ export default function CardComment({
                     {/* Like box */}
                     <View className="bg-[#F5F6FA] flex-row gap-2 items-center rounded-[10px] py-2 px-2">
                         <TouchableOpacity onPress={onClickLike} className="flex flex-row gap-1 p-1 rounded-full">
-                            <AntDesign name="like2" size={16} color="black" />
+
+                            {likedByUser ? (
+                                <AntDesign name="like1" size={16} color="#5758AB" />
+                            ) : (
+                                <AntDesign name="like2" size={16} color="black" />
+                            )}
                             <Text className="font-bold text-[#5758AB]">{like}</Text>
                         </TouchableOpacity>
 
