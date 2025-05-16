@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useLoginContext } from '../contexts/UserContext';
 import FieldAddReply from './FieldAddReply';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import ModalDelete from './ModalDelete';
 
 interface CardCommentProps {
@@ -21,9 +22,15 @@ interface CardCommentProps {
     createdAt: string;
     idAuthor: number;
     likedByUser: boolean;
+    openReply?: () => void;
+    replyIsTrue?: boolean;
+    level?: number;
+    replyCount?: number;
+
 }
 
 export default function CardComment({
+    replyCount,
     name,
     content,
     like,
@@ -33,7 +40,10 @@ export default function CardComment({
     onClickLike,
     onClickUnlike,
     createdAt,
-    likedByUser
+    likedByUser,
+    openReply,
+    replyIsTrue,
+    level = 0,
 }: CardCommentProps) {
     const [reply, setReply] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -150,13 +160,40 @@ export default function CardComment({
                             )}
                         </View>
                     ) : (
-                        <TouchableOpacity
-                            onPress={handleReply}
-                            className="flex-row gap-1 items-center"
-                        >
-                            <EvilIcons name="comment" size={24} color="#5758AB" />
-                            <Text className="text-[#5758AB] font-bold">Reply</Text>
-                        </TouchableOpacity>
+
+
+                        <View className='flex flex-row gap-6 items-center'>
+                            {level === 0 && (
+                                <TouchableOpacity onPress={openReply} className="flex-row gap-1 items-center">
+                                    <MaterialCommunityIcons
+
+                                        name={
+                                            (replyCount ?? 0) > 0
+                                                ? (replyIsTrue ? 'comment-multiple' : 'comment-multiple-outline')
+                                                : 'comment-multiple-outline'
+                                        }
+                                        size={18}
+                                        color="#5758AB"
+                                    />
+                                    <Text
+                                        className="text-[#5758AB] font-bold min-w-[16px] text-center"
+                                    >
+                                        {(replyCount ?? 0) > 0 ? replyCount : ' '}
+                                    </Text>
+                                </TouchableOpacity>
+                            )}
+
+
+
+
+                            <TouchableOpacity
+                                onPress={handleReply}
+                                className="flex-row gap-1 items-center"
+                            >
+                                <EvilIcons name="comment" size={24} color="#5758AB" />
+                                <Text className="text-[#5758AB] font-bold">Reply</Text>
+                            </TouchableOpacity>
+                        </View>
                     )}
                 </View>
 

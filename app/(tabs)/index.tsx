@@ -51,7 +51,7 @@ export default function HomeScreen() {
               <TouchableOpacity
                 onPress={() => fetchNextPage()}
                 disabled={isFetchingNextPage}
-                className="px-4 py-2 bg-blue-600 rounded-md disabled:opacity-50"
+                className="px-4 py-2 bg-[#5758AB] rounded-md disabled:opacity-50"
               >
                 <Text className="text-white font-semibold">
                   {isFetchingNextPage ? 'Carregando...' : 'Carregar mais comentários'}

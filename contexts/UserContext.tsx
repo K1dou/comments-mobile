@@ -16,6 +16,7 @@ interface UserContextType {
     setUser: (user: User | null) => void;
     login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
+    loading: boolean;
 
 
 }
@@ -28,28 +29,38 @@ interface UserProviderProps {
 
 export function UserProvider({ children }: UserProviderProps) {
     const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
+
 
 
     useEffect(() => {
         const loadUser = async () => {
+            console.log('🔄 Carregando usuário...');
             const token = await get('token');
-            if (!token) return;
+            console.log('🔐 Token encontrado:', token);
+
+            if (!token) {
+                setLoading(false);
+                return;
+            }
 
             try {
                 const me = await getMe();
+                console.log('✅ Usuário logado:', me.data);
                 setUser(me.data);
             } catch (err) {
-                console.error('Error loading user:', err);
+                console.error('❌ Erro ao buscar /me:', err);
                 await remove('token');
                 await remove('refreshToken');
                 setUser(null);
-                router.replace('/login');
+                router.replace('/(auth)/login');
+            } finally {
+                setLoading(false);
             }
         };
 
         loadUser();
     }, []);
-
     const login = async (email: string, password: string) => {
         try {
             const res = await authLogin(email, password);
@@ -86,7 +97,7 @@ export function UserProvider({ children }: UserProviderProps) {
 
 
     return (
-        <UserContext.Provider value={{ user, setUser, login, logout }}>
+        <UserContext.Provider value={{ user, setUser, login, logout, loading }}>
             {children}
         </UserContext.Provider>
     );

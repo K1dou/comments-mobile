@@ -10,14 +10,14 @@ import { useEffect } from 'react';
 const queryClient = new QueryClient();
 
 function AuthGuard({ children }: { children: React.ReactNode }) {
-    const { user } = useLoginContext();
-    const segments = useSegments(); // pega algo tipo ['(auth)', 'login']
+    const { user, loading } = useLoginContext();
+    const segments = useSegments();
     const router = useRouter();
 
     useEffect(() => {
         const isAuthRoute = segments[0] === '(auth)';
 
-        if (!user && !isAuthRoute) {
+        if (!loading && !user && !isAuthRoute) {
             router.replace('/(auth)/login');
         }
 
@@ -38,7 +38,9 @@ export default function RootLayout() {
         <QueryClientProvider client={queryClient}>
             <UserProvider>
                 <TamaguiProvider config={config}>
-                    <Slot />
+                    <AuthGuard>
+                        <Slot />
+                    </AuthGuard>
                 </TamaguiProvider>
             </UserProvider>
         </QueryClientProvider>
