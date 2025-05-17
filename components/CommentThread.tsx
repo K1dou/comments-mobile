@@ -8,9 +8,11 @@ import { useState } from 'react';
 interface CommentThreadProps {
     comment: any;
     level?: number;
+    scrollRef?: any;
+
 }
 
-export default function CommentThread({ comment, level = 0 }: CommentThreadProps) {
+export default function CommentThread({ comment, level = 0, scrollRef }: CommentThreadProps) {
 
     const likeComment = useLikeMutation();
     const unlikeComent = useUnlikeMutation();
@@ -31,6 +33,7 @@ export default function CommentThread({ comment, level = 0 }: CommentThreadProps
     return (
         <View className={`pt-6 ${level > 0 ? 'pl-6 ml-4 border-l-2 border-gray-200' : ''}`}>
             <CardComment
+                scrollRef={scrollRef}
                 replyCount={replyCount}
                 level={level}
                 replyIsTrue={reply}

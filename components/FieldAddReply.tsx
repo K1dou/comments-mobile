@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { View, TextInput, Image, TouchableOpacity, Text } from "react-native";
+import { useRef, useState } from "react";
+import { View, TextInput, Image, TouchableOpacity, Text, findNodeHandle } from "react-native";
 import { useLoginContext } from "../contexts/UserContext";
 import { useReplyMutation } from "@/hooks/useReplyMutation";
 
@@ -8,6 +8,8 @@ interface FieldAddReplyProps {
     parentId: number;
     onClick: () => void;
     parentAuthorName: string;
+    scrollRef?: any;
+
 }
 
 export default function FieldAddReply({
@@ -15,10 +17,26 @@ export default function FieldAddReply({
     parentId,
     onClick,
     parentAuthorName,
+    scrollRef,
 }: FieldAddReplyProps) {
     const { user } = useLoginContext();
     const [text, setText] = useState<string>(`@${parentAuthorName} `);
     const replyComment = useReplyMutation();
+    const inputRef = useRef<TextInput>(null);
+
+
+    const handleFocus = () => {
+
+        const nodeHandle = findNodeHandle(inputRef.current);
+
+        if (inputRef.current?.isFocused() && nodeHandle) {
+            (scrollRef.current as any)?.scrollToFocusedInput?.(nodeHandle, 150, 280);
+        } else {
+            console.warn('Input não está focado ou scrollRef inválido');
+        }
+
+    };
+
 
     function handleSubmitReply() {
         replyComment.mutate({
@@ -34,6 +52,8 @@ export default function FieldAddReply({
 
             className={`bg-white py-3 px-3 rounded-[10px] ${className}`}>
             <TextInput
+                ref={inputRef}
+                onFocus={handleFocus}
                 value={text}
                 onChangeText={setText}
                 placeholder="Add a comment..."

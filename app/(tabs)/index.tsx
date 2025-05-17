@@ -21,29 +21,26 @@ export default function HomeScreen() {
 
   const comments = paginatedCommentsData?.pages.flatMap((page) => page.content) ?? [];
 
-  const scrollRef = useRef<KeyboardAwareScrollView>(null);
+  const scrollRef = useRef(null);
 
 
   return (
     <>
       <Navbar />
-      <SafeAreaView
-        edges={['bottom']}
-
-        className="flex-1 bg-gray-100">
-
-
-
+      <SafeAreaView edges={['bottom']} className="flex-1 bg-gray-100">
 
         <KeyboardAwareScrollView
+          // innerRef={(ref) => (scrollRef.current = ref)}
           ref={scrollRef}
+          keyboardShouldPersistTaps="handled"
           enableOnAndroid
-          contentContainerStyle={{ paddingBottom: 10 }}
+          enableResetScrollToCoords={false}
+          keyboardOpeningTime={500}
+
           className="px-4 pt-4"
         >
-
           {comments.map((comment: any) => (
-            <CommentThread key={comment.id} comment={comment} />
+            <CommentThread key={comment.id} comment={comment} scrollRef={scrollRef} />
           ))}
 
           {hasNextPage && (
@@ -65,4 +62,5 @@ export default function HomeScreen() {
       </SafeAreaView>
     </>
   );
+
 }

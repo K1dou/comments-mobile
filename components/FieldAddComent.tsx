@@ -27,8 +27,10 @@ export default function FieldAddComent({ className, scrollRef }: FieldAddComentP
 
         <View className={`bg-white p-3 rounded-[10px] ${className}`}>
             <TextInput
-                onFocus={(event) => {
-                    scrollRef?.current?.scrollToFocusedInput(event.target);
+                onFocus={() => {
+                    setTimeout(() => {
+                        scrollRef?.current?.scrollToEnd({ animated: true });
+                    }, 100);
                 }}
 
                 value={text}

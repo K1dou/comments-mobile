@@ -26,6 +26,7 @@ interface CardCommentProps {
     replyIsTrue?: boolean;
     level?: number;
     replyCount?: number;
+    scrollRef?: any;
 
 }
 
@@ -44,6 +45,8 @@ export default function CardComment({
     openReply,
     replyIsTrue,
     level = 0,
+    scrollRef,
+
 }: CardCommentProps) {
     const [reply, setReply] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -201,7 +204,7 @@ export default function CardComment({
             <View>
                 {reply && (
                     <View className="mt-3">
-                        <FieldAddReply parentAuthorName={name} onClick={handleReply} parentId={id} />
+                        <FieldAddReply parentAuthorName={name} onClick={handleReply} scrollRef={scrollRef} parentId={id} />
                     </View>
                 )}
             </View>
